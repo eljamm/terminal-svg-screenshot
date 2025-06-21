@@ -21,7 +21,6 @@
           tmux
           charm-freeze
           fish
-          inkscape
           fontconfig
           nerd-fonts.jetbrains-mono
         ];
@@ -29,7 +28,7 @@
       {
         devShells = {
           default = pkgs.mkShell {
-            packages = tools;
+            packages = tools ++ [ pkgs.inkscape ];
             FONTCONFIG_PATH = "${pkgs.fontconfig.out}/etc/fonts";
           };
           start = pkgs.mkShell {
