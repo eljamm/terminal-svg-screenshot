@@ -20,7 +20,7 @@
         tools = with pkgs; [
           tmux
           charm-freeze
-          fish
+          fishMinimal
           fontconfig
           nerd-fonts.jetbrains-mono
         ];
@@ -42,7 +42,7 @@
           terminal = pkgs.writeShellApplication {
             name = "terminal";
             runtimeInputs = with pkgs; [
-              fish
+              fishMinimal
               tmux
             ];
             text = ''
