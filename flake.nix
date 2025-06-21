@@ -39,6 +39,29 @@
             '';
           };
         };
+        packages = {
+          terminal = pkgs.writeShellApplication {
+            name = "terminal";
+            runtimeInputs = with pkgs; [
+              fish
+              tmux
+            ];
+            text = ''
+              tmux new-session 'fish --init-command="function fish_prompt; echo '"'"'\$'" '"'; end"'
+            '';
+          };
+          # Takes screenshots of the terminal instance
+          # usage: capture -o output.svg
+          # TODO: make excluded prompt lines configurable here
+          capture = pkgs.writeShellApplication {
+            name = "capture";
+            runtimeInputs = tools;
+            runtimeEnv.FONTCONFIG_PATH = "${pkgs.fontconfig}/etc/fonts";
+            text = ''
+              tmux capture-pane -pet 0 | freeze -c ${self}/freeze.json "$@"
+            '';
+          };
+        };
       }
     );
 }
